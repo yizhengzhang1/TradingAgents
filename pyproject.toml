@@ -41,6 +41,10 @@ dev = [
 bedrock = [
     "langchain-aws>=1.7.9",
 ]
+# Futu news via a running OpenD (pip install "tradingagents[futu]").
+futu = [
+    "futu-api>=10.10",
+]
 
 [project.scripts]
 tradingagents = "cli.main:app"

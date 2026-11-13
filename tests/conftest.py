@@ -117,7 +117,17 @@ def _dummy_api_keys(monkeypatch):
 
 
 @pytest.fixture(autouse=True)
-def _isolate_config():
+def _upstream_news_default(request, monkeypatch):
+    """Tests other than the broker ones were written for Yahoo as the news default."""
+    if request.module.__name__.endswith("test_broker_news"):
+        return
+    import tradingagents.default_config as default_config
+
+    monkeypatch.setitem(default_config.DEFAULT_CONFIG["data_vendors"], "news_data", "yfinance")
+
+
+@pytest.fixture(autouse=True)
+def _isolate_config(_upstream_news_default):
     """Reset the global dataflows config before and after each test.
 
     ``set_config`` merges (it never clears keys absent from the override), so a

@@ -161,7 +161,9 @@ def build_default_config() -> dict:
             # Statements come from SEC EDGAR as filed (US filers), then Yahoo; the
         # overview and insider tools, which SEC EDGAR does not serve, from Yahoo.
         "fundamental_data": "sec_edgar,yfinance",  # Options: sec_edgar, alpha_vantage, yfinance
-            "news_data": "yfinance",             # Options: alpha_vantage, yfinance
+            # Company news from Futu (needs OpenD) and Longbridge (needs its CLI) merged, Yahoo when
+            # both fail; global news and insider trades have no broker vendor, so they stay on Yahoo.
+            "news_data": "futu_longbridge,yfinance",  # Options: futu, longbridge, futu_longbridge, alpha_vantage, yfinance
             "macro_data": "fred",                # Options: fred (needs FRED_API_KEY)
             "prediction_markets": "polymarket",  # Options: polymarket (keyless)
         },
